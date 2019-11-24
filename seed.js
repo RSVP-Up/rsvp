@@ -1,5 +1,5 @@
 const faker = require('faker');
-const _ = require("lodash");
+const _ = require('lodash');
 
 // {
 //   memberId: String('m' + Number)
@@ -21,7 +21,7 @@ const _ = require("lodash");
 
 
 // Attendees
-let attendees = [];
+let members = [];
 
 for (let i = 0; i < 499; i++) {
   const memberId = `m${i}`;
@@ -30,7 +30,7 @@ for (let i = 0; i < 499; i++) {
   const thumbnail = 'http://placecorgi.com/50';
   const favorite = faker.random.boolean();
 
-  let newAttendee = {
+  let newMember = {
     memberId,
     name,
     avatar,
@@ -38,7 +38,7 @@ for (let i = 0; i < 499; i++) {
     favorite
   }
 
-  attendees.push(newAttendee)
+  members.push(newMember)
 }
 
 
@@ -50,9 +50,9 @@ for (let i = 0; i < 100; i++) {
   const limit = faker.random.boolean();
   const setLimit = limit ? faker.random.number({ min: 20, max: 100 }) : null;
   const randomNum = faker.random.number({ min: 1, max: 100 });
-  const attendees = _.sampleSize(attendees, randomNum);
+  const attendees = _.sampleSize(members, randomNum);
   const eventOrganizer = faker.random.number({ min: 1, max: 2 })
-  const waitlist = [];
+  const waitlist = attendees.length > limit ? _.sampleSize(members, randomNum) : null;
 
   let newEvents = {
     eventId,
